@@ -25,7 +25,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // self.view必须是MTKView，否则无法获取device对象
     _view = (MTKView *)self.view;
+    
+    // 获取系统能够使用的MTLDevice对象
     _view.device = MTLCreateSystemDefaultDevice();
     
     if (!_view.device) {
@@ -42,9 +45,9 @@
     
     _view.delegate = _renderer;
     
-    _view.preferredFramesPerSecond = 60;
+    // 理想帧率60，如果因设备及其他原因无法达到，系统会将帧率调整为无限接近preferredFramesPerSecond的数值。
+    _view.preferredFramesPerSecond = 30;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
